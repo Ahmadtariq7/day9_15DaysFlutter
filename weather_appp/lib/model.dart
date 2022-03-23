@@ -1,3 +1,19 @@
+/*
+{
+  "weather": [
+    {
+      "description": "clear sky",
+      "icon": "01d"
+    }
+    
+  ],
+  "main": {
+    "temp": 282.55,
+  },
+  "name": "Mountain View",
+}                          
+ */
+
 class WeatherInfo {
   final String description;
   final String icon;
@@ -17,6 +33,7 @@ class TemperatureInfo {
   TemperatureInfo({required this.temperature});
 
   factory TemperatureInfo.fromJson(Map<String, dynamic> json) {
+    // parsing through word temp
     final temperature = json['temp'];
     return TemperatureInfo(temperature: temperature);
   }
@@ -37,14 +54,14 @@ class WeatherResponse {
       required this.weatherInfo});
 
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
-    // parsing name
+    // 1st level parsing
     final cityName = json['name'];
 
-    // parsing temp.. through main -> 2nd level
+    // 2nd level parsing and hooking them
     final tempInfoJson = json['main'];
     final tempInfo = TemperatureInfo.fromJson(tempInfoJson);
 
-    // parsing description & Icon -> 3rd level
+    // 3rd level parsing and hooking them
     final weatherInfoJson = json['weather'][0];
     final weatherInfo = WeatherInfo.fromJson(weatherInfoJson);
 
